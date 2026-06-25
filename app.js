@@ -20,6 +20,8 @@ const nextPrayerName = document.getElementById('nextPrayerName');
 const nextPrayerTime = document.getElementById('nextPrayerTime');
 const solatLocation = document.getElementById('solatLocation');
 const solatSource = document.getElementById('solatSource');
+const timeOfDayIcon = document.getElementById('timeOfDayIcon');
+const timeOfDayLabel = document.getElementById('timeOfDayLabel');
 const startRecitation = document.getElementById('startRecitation');
 const stopRecitation = document.getElementById('stopRecitation');
 const recitationScore = document.getElementById('recitationScore');
@@ -1048,12 +1050,49 @@ function formatDate(date) {
   });
 }
 
+const timeOfDayData = {
+  dawn: { icon: '🌅', label: 'Dawn' },
+  midday: { icon: '☀️', label: 'Midday' },
+  afternoon: { icon: '🌤', label: 'Afternoon' },
+  sunset: { icon: '🌇', label: 'Sunset' },
+  night: { icon: '🌙', label: 'Night' },
+};
+
 function formatTime(date) {
   return date.toLocaleTimeString(undefined, {
     hour: '2-digit',
     minute: '2-digit',
     second: '2-digit',
   });
+}
+
+function getTimeOfDaySegment(date) {
+  const hour = date.getHours();
+  if (hour >= 4 && hour < 10) {
+    return 'dawn';
+  }
+  if (hour >= 10 && hour < 14) {
+    return 'midday';
+  }
+  if (hour >= 14 && hour < 17) {
+    return 'afternoon';
+  }
+  if (hour >= 17 && hour < 19) {
+    return 'sunset';
+  }
+  return 'night';
+}
+
+function updateTimeOfDayStatus() {
+  if (!timeOfDayIcon || !timeOfDayLabel) {
+    return;
+  }
+
+  const segment = getTimeOfDaySegment(new Date());
+  const segmentData = timeOfDayData[segment] || timeOfDayData.night;
+  timeOfDayIcon.textContent = segmentData.icon;
+  timeOfDayLabel.textContent = segmentData.label;
+  timeOfDayIcon.className = `time-of-day-icon ${segment}`;
 }
 
 function toLocalDateKey(date) {
@@ -1083,6 +1122,7 @@ function updateSelectedDate(date) {
 
 function updateClock() {
   currentTime.textContent = formatTime(new Date());
+  updateTimeOfDayStatus();
   updatePrayerSummary();
 }
 

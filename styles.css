@@ -467,6 +467,75 @@ main {
   overflow-wrap: anywhere;
 }
 
+.time-of-day {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+  color: var(--muted);
+}
+
+.time-of-day-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 16px;
+  background: var(--panel-bg);
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+  font-size: 1.25rem;
+  animation: pulse 2.8s ease-in-out infinite;
+  transition: transform 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+}
+
+.time-of-day-icon:hover {
+  transform: scale(1.06);
+}
+
+.time-of-day-label {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.time-of-day-icon.dawn {
+  background: rgba(249, 115, 22, 0.15);
+  color: #ea580c;
+}
+
+.time-of-day-icon.midday {
+  background: rgba(251, 191, 36, 0.18);
+  color: #b45309;
+}
+
+.time-of-day-icon.afternoon {
+  background: rgba(34, 197, 94, 0.14);
+  color: #15803d;
+}
+
+.time-of-day-icon.sunset {
+  background: rgba(249, 115, 22, 0.18);
+  color: #c2410b;
+}
+
+.time-of-day-icon.night {
+  background: rgba(59, 130, 246, 0.14);
+  color: #1d4ed8;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.94;
+  }
+
+  50% {
+    transform: scale(1.08);
+    opacity: 1;
+  }
+}
+
 input[type="date"] {
   border-radius: 12px;
   border: 1px solid #d1d5db;
