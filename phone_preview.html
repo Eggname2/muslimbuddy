@@ -18,14 +18,13 @@
   <h2>Phone Preview — Muslimbuddy</h2>
   <div class="controls">
     <a class="btn" href="index.html" target="_blank">Open Full Page</a>
-    <a class="btn" href="http://localhost:8000/phone_preview.html" target="_blank">Open via http://localhost:8000/</a>
   </div>
-  <p class="note small">For network features (Solat times) the preview must be served over HTTP. Run a local server from the project folder:<br><code>python -m http.server 8000</code></p>
+  <p class="note small">This preview page is optional. Use <a href="index.html">index.html</a> as the hosted app entry point for Vercel or other static hosts.</p>
   <div class="device" id="device">
     <div class="screen">
       <iframe src="index.html" style="width:100%;height:100%;border:0;" title="Muslimbuddy phone preview"></iframe>
     </div>
   </div>
-  <p class="small">Tip: use Live Server extension or the Python command above, then open <strong>http://localhost:8000/phone_preview.html</strong></p>
+  <p class="small">Tip: open <a href="index.html">index.html</a> directly, or host the site on Vercel to serve it online without a local server.</p>
 </body>
 </html>

@@ -13,8 +13,8 @@ A simple static web app with multiple buttons.
   - compare the browser Arabic transcript against the expected Surah text
   - receive a match score and practice feedback
 
-## Run locally
-1. Open `index.html` in your browser.
+## Run locally or on a host
+1. Open `index.html` in your browser, or deploy the site to a static host like Vercel.
 2. Click `Solat Times` to view the prayer schedule.
 3. Select a past date or press `Today` to update the schedule.
 4. Click `Quran Checker`, allow microphone access, and press `Start Reciting` to practice Al-Fatihah.

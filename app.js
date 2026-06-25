@@ -216,7 +216,7 @@ function getRecognitionErrorMessage(errorName) {
     'service-not-allowed': 'Speech recognition is blocked by the browser. Try Chrome or Edge and allow microphone access.',
     'audio-capture': 'No microphone was found. Check that your mic is connected and selected in browser settings.',
     'no-speech': 'No speech was detected. Press Start Reciting again and begin speaking right away.',
-    network: 'Speech recognition needs the browser speech service. Check your internet connection and run the app from localhost if you opened it as a file.',
+    network: 'Speech recognition needs the browser speech service. Check your internet connection and open the app from a hosted URL or web server rather than a local file.',
     aborted: 'Recording was stopped before speech was detected. Press Start Reciting and try again.',
     'language-not-supported': 'Arabic speech recognition is not supported by this browser. Try Chrome or Edge.',
   };
@@ -350,7 +350,7 @@ function setupRecitationChecker() {
     recitationStatus.textContent = getRecognitionErrorMessage(event.error);
     setFeedback([
       `Browser error: ${event.error}.`,
-      'Tip: use Chrome or Edge, allow microphone access, and serve the app from http://localhost instead of opening the file directly.',
+      'Tip: use Chrome or Edge, allow microphone access, and open the app from a hosted URL or web server rather than as a local file.',
     ]);
   });
 }
