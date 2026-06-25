@@ -1,90 +1,271 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Muslimbuddy — Solat & Quran Helper</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Muslimbuddy</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <div class="container">
     <header>
-      <h1>Muslimbuddy</h1>
-      <p>Your Solat times and Al-Fatihah practice tool, ready for online hosting on Vercel.</p>
+      <h1 id="appTitle">Muslimbuddy</h1>
+      <p id="appSubtitle">Use the buttons below to check prayer times, quizzes, or Quran reading practice.</p>
     </header>
 
     <div class="button-row">
-      <button id="homeBtn" class="active" type="button">Home</button>
-      <button id="solatBtn" type="button">Solat Times</button>
-      <button id="quranBtn" type="button">Quran Checker</button>
+      <button id="homeBtn" class="nav-btn active">Home</button>
+      <button id="solatBtn" class="nav-btn">Solat Times</button>
+      <button id="quranBtn" class="nav-btn">Quran Checker</button>
+      <button id="quizBtn" class="nav-btn">Quizzes</button>
+      <button id="settingsBtn" class="nav-btn">Settings</button>
     </div>
 
     <main>
       <section id="homeSection" class="card">
-        <h2>Welcome</h2>
-        <p>Use the navigation buttons to view prayer times or practice Surah Al-Fatihah. This app is now hosted from the root instead of requiring a local server.</p>
+        <h2 id="homeTitle">Welcome</h2>
+        <label>
+          <span id="homeLanguageLabel">Select your language</span>
+          <select id="homeLanguageSelect">
+            <option value="en">English</option>
+            <option value="ms">Malay</option>
+          </select>
+        </label>
+        <p id="homeParagraph1">This simple app helps you view prayer times and select past or present dates for Solat schedules.</p>
+        <p id="homeParagraph2">Click the <strong>Solat Times</strong> button to view the prayer schedule and current clock.</p>
       </section>
 
       <section id="solatSection" class="card hidden">
-        <div class="date-controls">
-          <button id="prevDate" type="button" class="secondary">Previous</button>
-          <button id="todayDate" type="button">Today</button>
-          <button id="nextDate" type="button" class="secondary">Next</button>
-        </div>
-        <div class="status-row">
-          <div>
-            <strong>Date</strong>
-            <p id="selectedDate"></p>
+        <div class="solat-tool">
+          <div class="solat-topbar">
+            <div>
+              <h2 id="solatHeading">Solat Time Checker</h2>
+              <p id="solatNote" class="note">This Solat checker uses the Aladhan API and your browser's local time. If the network is blocked or unavailable, a fallback schedule is displayed.</p>
+            </div>
+            <div class="solat-location">
+              <span>Location</span>
+              <strong id="solatLocation">Bandar Seri Begawan, Brunei</strong>
+              <span id="solatSource">Preparing schedule...</span>
+            </div>
           </div>
-          <div>
-            <strong>Current time</strong>
-            <p id="currentTime"></p>
+
+          <div class="date-controls">
+            <button id="prevDate" type="button">Previous Date</button>
+            <input type="date" id="solatDate" />
+            <button id="nextDate" type="button">Next Date</button>
+            <button id="todayDate" class="secondary" type="button">Today</button>
+          </div>
+
+          <div class="solat-dashboard">
+            <div class="next-prayer-card">
+              <div>
+                <span class="next-prayer-label">Next prayer</span>
+                <strong id="nextPrayerName" class="next-prayer-name">-</strong>
+              </div>
+              <div>
+                <span id="nextPrayerTime" class="next-prayer-time">-</span>
+                <p id="solatStatusMessage" class="note">Preparing Solat schedule...</p>
+              </div>
+            </div>
+
+            <div class="solat-panel">
+              <div class="solat-meta-grid">
+                <div class="solat-meta-item">
+                  <span id="selectedDateLabel" class="solat-meta-label">Selected date</span>
+                  <span id="selectedDate" class="solat-meta-value">-</span>
+                </div>
+                <div class="solat-meta-item">
+                  <span id="localTimeLabel" class="solat-meta-label">Local time</span>
+                  <span id="currentTime" class="solat-meta-value">-</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="solat-panel" id="prayerTimesCard">
+            <h3 id="prayerTimesHeading">Today's Prayer Times</h3>
+            <div id="prayerTimesList" class="timing-list"></div>
           </div>
         </div>
-        <div class="small-card">
-          <label for="solatDate">Select date</label>
-          <input id="solatDate" type="date">
-        </div>
-        <div class="timing-list" id="prayerTimesList"></div>
       </section>
 
       <section id="quranSection" class="card hidden">
-        <div class="recitation-actions">
-          <button id="startRecitation" type="button">Start Reciting</button>
-          <button id="stopRecitation" type="button" class="secondary">Stop</button>
-        </div>
-        <div class="recitation-grid">
-          <div class="recitation-panel">
-            <h3>Recitation status</h3>
+        <h2 id="quranHeading">Quran Checker</h2>
+        <p id="quranDescription">Choose between Arabic letters reading and Quran reading in this prototype.</p>
+
+        <div class="reading-card">
+          <div class="reading-tab-row">
+            <button id="letterModeBtn" class="tab" type="button">Arabic Letters</button>
+            <button id="quranModeBtn" class="tab active" type="button">Quran Reading</button>
+          </div>
+          <div class="reading-controls">
+            <div id="letterSection" class="reading-subsection hidden">
+              <label>
+                <span id="letterSelectLabel">Select letter</span>
+                <select id="letterSelect">
+                  <option value="alif">Alif</option>
+                  <option value="ba">Ba</option>
+                  <option value="ta">Ta</option>
+                  <option value="tha">Tha</option>
+                  <option value="jim">Jim</option>
+                  <option value="ha">Ha</option>
+                  <option value="kha">Kha</option>
+                  <option value="dal">Dal</option>
+                  <option value="dhal">Dhal</option>
+                  <option value="ra">Ra</option>
+                  <option value="zay">Zay</option>
+                  <option value="sin">Sin</option>
+                  <option value="shin">Shin</option>
+                  <option value="sad">Sad</option>
+                  <option value="dad">Dad</option>
+                  <option value="ta2">Ta</option>
+                  <option value="za2">Za</option>
+                  <option value="ain">Ain</option>
+                  <option value="ghain">Ghain</option>
+                  <option value="fa">Fa</option>
+                  <option value="qaf">Qaf</option>
+                  <option value="kaf">Kaf</option>
+                  <option value="lam">Lam</option>
+                  <option value="mim">Mim</option>
+                  <option value="nun">Nun</option>
+                  <option value="ha2">Ha</option>
+                  <option value="waw">Waw</option>
+                  <option value="ya">Ya</option>
+                </select>
+              </label>
+              <div class="letter-info" id="letterInfo">Choose a letter to see its sound and sample.</div>
+            </div>
+            <div id="surahSection" class="reading-subsection">
+              <label>
+                <span id="selectSurahLabel">Select Surah</span>
+                <select id="surahSelect">
+                  <option value="al-fatihah">Al-Fatihah (Surah 1)</option>
+                  <option value="al-baqarah">Al-Baqarah (Surah 2)</option>
+                  <option value="al-aala">Al-A'la (Surah 3)</option>
+                </select>
+              </label>
+              <label>
+                <span id="selectLineLabel">Select line</span>
+                <select id="surahLineSelect"></select>
+              </label>
+              <div class="recitation-actions">
+                <button id="readLineBtn" type="button">Read Line</button>
+                <button id="readWholeBtn" type="button">Read Whole Surah</button>
+              </div>
+              <div class="letter-info" id="surahInfo">Choose a surah and line to see the Arabic text and AI-style feedback.</div>
+            </div>
+          </div>
+          <div class="mic-practice">
+            <div class="recitation-actions">
+              <button id="startRecitation" type="button">Start Reciting</button>
+              <button id="stopRecitation" class="secondary" type="button" disabled>Stop</button>
+            </div>
             <div class="score-card">
-              <strong>Score</strong>
-              <span id="recitationScore">-</span>
+              <strong id="recitationScore">Not checked yet</strong>
+              <span id="recitationStatus">Pick an Arabic letter or Quran line, say it into the microphone, and the app will tell you what it heard.</span>
             </div>
             <div class="transcript-box">
-              <strong>Transcript</strong>
+              <strong id="transcriptLabel">Your transcript</strong>
               <p id="recitationTranscript">-</p>
             </div>
             <div class="feedback-box">
-              <strong>Feedback</strong>
-              <ul id="recitationFeedback"></ul>
+              <strong id="feedbackLabel">Feedback</strong>
+              <ul id="recitationFeedback">
+                <li>Waiting for your Arabic reading.</li>
+              </ul>
             </div>
-            <p id="recitationStatus" class="note">Allow microphone access in Chrome or Edge for speech recognition.</p>
           </div>
-          <div class="recitation-panel">
-            <h3>Surah Al-Fatihah</h3>
-            <ol class="surah-lines" lang="ar">
-              <li><span>بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</span><small>Bismillāhir-raḥmānir-raḥīm</small></li>
-              <li><span>الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ</span><small>Al-ḥamdu lillāhi rabbi l-ʿālamīn</small></li>
-              <li><span>الرَّحْمَٰنِ الرَّحِيمِ</span><small>Ar-raḥmāni r-raḥīm</small></li>
-              <li><span>مَالِكِ يَوْمِ الدِّينِ</span><small>Māliki yawmid-dīn</small></li>
-              <li><span>إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ</span><small>Iyyāka naʿbudu wa iyyāka nastaʿīn</small></li>
-              <li><span>اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ</span><small>Ihdina ṣ-ṣirāṭal-mustaqīm</small></li>
-              <li><span>صِرَاطَ الَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ الْمَغْضُوبِ عَلَيْهِمْ وَلَا الضَّالِّينَ</span><small>Ṣirāṭa alladhīna anʿamta ʿalayhim ghayril-maġḍūbi ʿalayhim walā ḍ-ḍāllīn</small></li>
-            </ol>
+        </div>
+
+        <p class="note">Speech recognition support depends on your browser. This feature checks whether expected Arabic words were detected, but it cannot judge tajweed rules or replace feedback from a qualified Quran teacher.</p>
+      </section>
+
+      <section id="quizSection" class="card hidden">
+        <h2 id="quizHeading">Quizzes</h2>
+        <div class="quiz-card">
+          <div class="score-card">
+            <strong id="quizScore">Ready to start</strong>
+            <span id="quizStatus">Select a subject and press Start Quiz.</span>
+          </div>
+
+          <div class="settings-panel">
+            <label>
+              <span id="quizSubjectLabel">Choose subject</span>
+              <select id="subjectSelect">
+                <option value="Prophet Muhammad">Prophet Muhammad</option>
+                <option value="Prophet Ibrahim">Prophet Ibrahim</option>
+                <option value="Prophet Musa">Prophet Musa</option>
+                <option value="Abu Bakr">Abu Bakr</option>
+                <option value="Umar ibn al-Khattab">Umar ibn al-Khattab</option>
+                <option value="Uthman ibn Affan">Uthman ibn Affan</option>
+              </select>
+            </label>
+          </div>
+          <div class="quiz-status">
+            <span id="quizTimer">Timer: 15 sec</span>
+            <span id="quizProgress">0 / 0 answered</span>
+          </div>
+
+          <div class="quiz-question" id="quizQuestionText">Choose a subject and click Start Quiz to begin.</div>
+          <div id="quizOptions" class="quiz-options"></div>
+
+          <div class="recitation-actions">
+            <button id="startQuizBtn">Start Quiz</button>
+            <button id="retryWrongBtn" class="secondary" disabled>Retry Wrong</button>
+          </div>
+
+          <div class="feedback-box">
+            <strong id="wrongHeader">Wrong questions</strong>
+            <ul id="quizWrongList" class="wrong-list">
+              <li>No wrong questions yet.</li>
+            </ul>
           </div>
         </div>
       </section>
+
+      <section id="settingsSection" class="card hidden">
+        <h2 id="settingsHeading">Settings</h2>
+        <div class="settings-card">
+          <label>
+            <span id="settingsLanguageLabel">Language</span>
+            <select id="languageSelect">
+              <option value="en">English</option>
+              <option value="ms">Malay</option>
+            </select>
+          </label>
+          <label>
+            <span id="settingsThemeLabel">Theme</span>
+            <button id="themeToggle" class="secondary" type="button">Dark Mode</button>
+          </label>
+          <label>
+            <span id="settingsTimerLabel">Timer</span>
+            <select id="timerSelect">
+              <option value="10">10 sec</option>
+              <option value="15" selected>15 sec</option>
+              <option value="20">20 sec</option>
+            </select>
+          </label>
+          <label class="switch-label">
+            <span id="yesLabel">Yes</span>
+            <div class="switch-control">
+              <input id="yesToggle" type="checkbox" />
+              <span class="toggle-switch"></span>
+            </div>
+          </label>
+          <label class="switch-label" id="yes2Label" style="margin-top:8px;">
+            <span>Yes 2</span>
+            <div class="switch-control">
+              <input id="yesToggle2" type="checkbox" />
+              <span class="toggle-switch"></span>
+            </div>
+          </label>
+        </div>
+      </section>
     </main>
+  </div>
+  <div id="popoutContainer" class="popout-container"></div>
+  <div id="cornerIcon" class="corner-icon">
+    <img src="assets/corner-orange.png" alt="Orange crewmate character" />
   </div>
   <script src="app.js" defer></script>
 </body>

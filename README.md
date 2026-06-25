@@ -1,25 +1,35 @@
-# Solat & Quran Helper
+# Muslimbuddy
 
-A simple static web app with multiple buttons.
+A single-page static web app for prayer times, Quran reading practice, quizzes, and language/theme settings.
 
 ## Features
-- Home screen with navigation buttons
-- Solat Times section:
-  - view prayer times for a selected date
-  - navigate previous and next dates
-  - see the current local time
-- Quran Checker section:
-  - recite Surah Al-Fatihah with your microphone
-  - compare the browser Arabic transcript against the expected Surah text
-  - receive a match score and practice feedback
+- Home screen with language selector and navigation buttons
+- Solat Times section
+  - live prayer times from the Aladhan API
+  - offline fallback prayer schedule if the network is unavailable
+  - date picker with previous/next/today controls
+  - next prayer highlight and local time display
+- Quran Checker section
+  - Arabic letters practice mode
+  - Quran surah reading mode with selectable surah and line
+  - speech recognition support for Arabic recitation feedback
+- Quizzes section
+  - quizzes on Islamic personalities
+  - timer countdown and progress tracking
+  - retry wrong questions after the quiz
+- Settings section
+  - language switching between English and Malay
+  - light/dark theme toggle
+  - timer duration control
+  - optional animated popout effects
 
-## Run locally or on a host
-1. Open `index.html` in your browser, or deploy the site to a static host like Vercel.
-2. Click `Solat Times` to view the prayer schedule.
-3. Select a past date or press `Today` to update the schedule.
-4. Click `Quran Checker`, allow microphone access, and press `Start Reciting` to practice Al-Fatihah.
+## Run locally or deploy
+1. Open `index.html` in a browser, or deploy this folder as a static site on GitHub Pages, Vercel, or any static host.
+2. Use the navigation buttons to switch between Home, Solat Times, Quran Checker, Quizzes, and Settings.
+3. Allow microphone access for Quran recitation practice.
 
 ## Notes
-- Prayer times are fetched from the Aladhan API when available.
-- If the network request fails, a fallback sample schedule is displayed.
-- The recitation checker uses browser speech recognition, so accuracy depends on browser support, microphone quality, accent, and noise level. It checks detected words, not tajweed rules.
+- The app is a static site and requires no server-side code.
+- Prayer times are fetched from the public Aladhan API and also support offline fallback values.
+- Browser speech recognition works best in Chrome or Edge and may require microphone permission.
+- The app includes built-in assets in `assets/` for animated corner and popout visuals.
