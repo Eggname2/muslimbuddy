@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Phone Preview — Muslimbuddy</title>
+  <style>
+    body{font-family:system-ui,Segoe UI,Roboto,Helvetica,Arial;display:flex;flex-direction:column;align-items:center;gap:12px;padding:18px;background:#f3f6fb}
+    .device { width:390px; height:844px; border-radius:36px; background:white; box-shadow:0 10px 30px rgba(2,6,23,0.12); overflow:hidden; border:12px solid #222; position:relative }
+    .device .screen{width:100%;height:100%;border-radius:18px;overflow:auto;background:#fff}
+    .controls{display:flex;gap:8px}
+    .note{max-width:820px;text-align:center;color:#333}
+    .btn{background:#1f62e6;color:#fff;padding:8px 12px;border-radius:8px;text-decoration:none}
+    .small{font-size:12px;color:#666}
+  </style>
+</head>
+<body>
+  <h2>Phone Preview — Muslimbuddy</h2>
+  <div class="controls">
+    <a class="btn" href="index.html" target="_blank">Open Full Page</a>
+    <a class="btn" href="http://localhost:8000/phone_preview.html" target="_blank">Open via http://localhost:8000/</a>
+  </div>
+  <p class="note small">For network features (Solat times) the preview must be served over HTTP. Run a local server from the project folder:<br><code>python -m http.server 8000</code></p>
+  <div class="device" id="device">
+    <div class="screen">
+      <iframe src="index.html" style="width:100%;height:100%;border:0;" title="Muslimbuddy phone preview"></iframe>
+    </div>
+  </div>
+  <p class="small">Tip: use Live Server extension or the Python command above, then open <strong>http://localhost:8000/phone_preview.html</strong></p>
+</body>
+</html>
